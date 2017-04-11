@@ -1,0 +1,8 @@
+_Store
+.gradle/
+.idea/
+build/
+xunyiwenyao.iml
+as_xunyiwenyao.iml
+local.properties
+app/app.iml
