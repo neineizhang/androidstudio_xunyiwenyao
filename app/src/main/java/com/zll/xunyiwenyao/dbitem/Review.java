@@ -15,9 +15,13 @@ public class Review {
     private String comment;//备注
 
     public Review(){}
-    public Review(String name, String content){
+    public Review(String name, String drug_name, String content, String date, Doctor doctor, String comment){
         this.name=name;
+        this.drug_name=drug_name;
         this.content=content;
+        this.date=date;
+        this.doctor=doctor;
+        this.comment=comment;
     }
 
     public String getName(){

@@ -57,7 +57,7 @@ public class DoctorWebService {
     	}
     	return null;
     }
-    //返回所有的use_rname
+
     public static List<String> getAllUsername(){
         List<String> usernamelist = new ArrayList<String>();
         for(Doctor doctor:doctorlist)

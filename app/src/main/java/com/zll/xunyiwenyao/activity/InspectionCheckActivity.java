@@ -27,9 +27,9 @@ import java.util.List;
  */
 
 public class InspectionCheckActivity extends Activity implements TopBarView.onTitleBarClickListener {
-    private  TopBarView topbar;
+    private TopBarView topbar;
     private Button btn_update, btn_ok;
-    private EditText i_name, p_name, p_age, diagnosis, content, date, comment, doctor_name;
+    private EditText i_name, p_name, p_age, history, location, date, comment, doctor_name,type;
     private RadioGroup sex_rg;
     private RadioButton sex_r1, sex_r2;
     private Button date_choose;
@@ -74,22 +74,24 @@ public class InspectionCheckActivity extends Activity implements TopBarView.onTi
         i_name = (EditText)findViewById(R.id.editText1);
         p_name = (EditText)findViewById(R.id.name_text);
         p_age = (EditText)findViewById(R.id.age_text);
-        diagnosis = (EditText)findViewById(R.id.clinical_diagnosis_text);
-        content = (EditText)findViewById(R.id.inspection_text);
+        history = (EditText)findViewById(R.id.history_text);
+        location = (EditText)findViewById(R.id.inspection_location_text);
         date = (EditText)findViewById(R.id.date_text);
         comment = (EditText)findViewById(R.id.comment_text);
         doctor_name = (EditText)findViewById(R.id.doctor_text);
+        type = (EditText)findViewById(R.id.type_text);
 
 
         i_name.setText(inspectionList.get(temp).getInspectionName().toString());
         p_name.setText(inspectionList.get(temp).getPatientName().toString());
         p_age.setText(inspectionList.get(temp).getPatientAge().toString());
-        diagnosis.setText(inspectionList.get(temp).getPatientDiag().toString());
-        content.setText(inspectionList.get(temp).getInspectionText().toString());
+        history.setText(inspectionList.get(temp).getPatientHistory().toString());
+        location.setText(inspectionList.get(temp).getInspectionLoaction().toString());
         date.setText(inspectionList.get(temp).getInspectionDate().toString());
         comment.setText(inspectionList.get(temp).getInspectionComment().toString());
         doctor_name.setText(inspectionList.get(temp).getDoctor().getRealName().toString());
         currDoctor = inspectionList.get(temp).getDoctor();
+        type.setText(inspectionList.get(temp).getType().toString());
 
         sex_rg = (RadioGroup)findViewById(R.id.sex_rg);
         sex_r1 = (RadioButton)findViewById(R.id.sex_rb1);
@@ -126,14 +128,14 @@ public class InspectionCheckActivity extends Activity implements TopBarView.onTi
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
-                if(state==Utils.INSPECTION_STATUS.UNCOMMITED.ordinal()){
-                    if(currDoctor==Utils.LOGIN_DOCTOR){
+                if(state== Utils.INSPECTION_STATUS.UNCOMMITED.ordinal()){
+                    if(currDoctor== Utils.LOGIN_DOCTOR){
                         p_name.setEnabled(true);
                         sex_r1.setEnabled(true);
                         sex_r2.setEnabled(true);
                         p_age.setEnabled(true);
-                        diagnosis.setEnabled(true);
-                        content.setEnabled(true);
+                        history.setEnabled(true);
+                        location.setEnabled(true);
                         date.setEnabled(true);
                         comment.setEnabled(true);
                     }
@@ -153,7 +155,7 @@ public class InspectionCheckActivity extends Activity implements TopBarView.onTi
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
                 //获得修改后的性别
-                if(state==Utils.INSPECTION_STATUS.UNCOMMITED.ordinal()){
+                if(state== Utils.INSPECTION_STATUS.UNCOMMITED.ordinal()){
 
                         sex_rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
@@ -175,12 +177,12 @@ public class InspectionCheckActivity extends Activity implements TopBarView.onTi
 
                         newins.setPatientSex(sex);
                         newins.setPatientAge(p_age.getText().toString());
-                        newins.setPatientDiag(diagnosis.getText().toString());
-                        newins.setInspectionText(content.getText().toString());
+                        newins.setPatientHistory(history.getText().toString());
+                        newins.setInspectionLocation(location.getText().toString());
                         newins.setInspectionDate(date.getText().toString());
                         newins.setInspectionComment(comment.getText().toString());
 
-                        state=Utils.INSPECTION_STATUS.UNCOMMITED.ordinal();
+                        state= Utils.INSPECTION_STATUS.UNCOMMITED.ordinal();
                         newins.setInspectionState(state);
                         newins.setDoctor(currDoctor);
 
@@ -196,8 +198,8 @@ public class InspectionCheckActivity extends Activity implements TopBarView.onTi
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
-                if(state==Utils.INSPECTION_STATUS.UNCOMMITED.ordinal()){
-                    if(currDoctor==Utils.LOGIN_DOCTOR){
+                if(state== Utils.INSPECTION_STATUS.UNCOMMITED.ordinal()){
+                    if(currDoctor== Utils.LOGIN_DOCTOR){
 
                         InspectionWebService.deleteInspectionByPosition(temp);
                         Toast.makeText(InspectionCheckActivity.this, "检查单删除成功！", Toast.LENGTH_SHORT).show();
@@ -220,8 +222,8 @@ public class InspectionCheckActivity extends Activity implements TopBarView.onTi
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
-                if(state==Utils.INSPECTION_STATUS.UNCOMMITED.ordinal()){
-                    if(currDoctor==Utils.LOGIN_DOCTOR){
+                if(state== Utils.INSPECTION_STATUS.UNCOMMITED.ordinal()){
+                    if(currDoctor== Utils.LOGIN_DOCTOR){
                        Inspection updateins = new Inspection();
                         updateins=inspectionList.get(temp);
                         updateins.setInspectionState(Utils.INSPECTION_STATUS.COMMITED.ordinal());
@@ -248,7 +250,7 @@ public class InspectionCheckActivity extends Activity implements TopBarView.onTi
     }
     @Override
     public void onRightClick() {
-        Toast.makeText(InspectionCheckActivity.this, "你点击了右侧按钮", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(InspectionCheckActivity.this, "你点击了右侧按钮", Toast.LENGTH_SHORT).show();
 
     }
 }

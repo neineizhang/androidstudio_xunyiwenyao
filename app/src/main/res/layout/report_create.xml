@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:orientation="vertical" >
     
     <LinearLayout
         android:layout_width="fill_parent"
@@ -15,7 +19,7 @@
         android:id="@+id/topbar"  
         android:layout_width="wrap_content"  
         android:layout_height="wrap_content"  
-        custom:titleText="药物反应报告填写"   
+        custom:titleText="药物不良反应报告填写"
         custom:titleSize="6sp"   
         custom:titleColor="@android:color/white"   
         custom:leftBtn="@drawable/back_page"   
@@ -82,7 +86,7 @@
 	        <EditText
 		        android:id="@+id/manifestation_text"
 		        android:layout_width="match_parent"
-		        android:layout_height="73dp"
+		        android:layout_height="62dp"
 		        android:ems="10"
 		        android:inputType="textMultiLine" >
 			  </EditText>
@@ -96,31 +100,81 @@
 
 
 
-				<TextView
-	            android:id="@+id/textView3"
-	            android:layout_width="fill_parent"
-	            android:layout_height="0dp"
-	            android:text="*涉及的主要药品"
-	            android:textColor="#000000"
-	        	android:textStyle="bold"
-	        	android:background="#B0B0B0"
-	        	android:textSize="18sp"
-	            android:layout_weight="1" />
+				<!--<TextView-->
+	            <!--android:id="@+id/textView3"-->
+	            <!--android:layout_width="fill_parent"-->
+	            <!--android:layout_height="0dp"-->
+	            <!--android:text="*涉及的主要药品"-->
+	            <!--android:textColor="#000000"-->
+	        	<!--android:textStyle="bold"-->
+	        	<!--android:background="#B0B0B0"-->
+	        	<!--android:textSize="18sp"-->
+	            <!--android:layout_weight="1" />-->
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical" >
+
+					<TextView
+						android:id="@+id/drugs_information"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:background="#B0B0B0"
+						android:text="*涉及的主要药品"
+						android:textColor="#000000"
+						android:textSize="18sp"
+						android:textStyle="bold" />
+
+					<Button
+						android:id="@+id/add_drug"
+						style="?android:attr/buttonStyleSmall"
+						android:layout_width="20dp"
+						android:layout_height="20dp"
+						android:scaleType="centerInside"
+						android:layout_alignParentRight="true"
+						android:layout_centerVertical="true"
+						android:layout_marginRight="12dp"
+						android:background="@drawable/add_btn"/>
+				</RelativeLayout>
 
 
-        
-	        <View  android:layout_height="1px" 
-	           android:layout_width="match_parent"
-	           android:background="#BFBFBF"/>
 
-	           
-	        <EditText
-		        android:id="@+id/drug_text"
-		        android:layout_width="match_parent"
-		        android:layout_height="97dp"
-		        android:ems="10"
-		        android:inputType="textMultiLine" >
-			  </EditText>
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:orientation="vertical" >
+
+					<LinearLayout
+						android:layout_width="fill_parent"
+						android:layout_height="wrap_content"
+						android:minHeight="40dip"
+						android:orientation="horizontal" >
+
+						<TextView
+							android:layout_width="fill_parent"
+							android:layout_height="fill_parent"
+							android:layout_weight="2"
+							android:gravity="center"
+							android:text="药品ID"
+							android:textColor="#850" />
+
+						<TextView
+							android:layout_width="fill_parent"
+							android:layout_height="fill_parent"
+							android:layout_weight="2"
+							android:gravity="center"
+							android:text="药品名称"
+							android:textColor="#850" />
+					</LinearLayout>
+
+					<ListView
+						android:id="@+id/drugs_lv"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:cacheColorHint="@android:color/transparent"
+						android:scrollbars="none" >
+					</ListView>
+				</LinearLayout>
 	    </LinearLayout> 
 	    
 	    		    <!-- 其他信息 -->
@@ -289,3 +343,4 @@
     </LinearLayout>
 
 </LinearLayout>
+</ScrollView>

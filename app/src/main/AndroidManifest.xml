@@ -47,7 +47,12 @@
         <activity android:name=".activity.InspectionCheckActivity"></activity>
         <activity android:name=".activity.DoctorInformationManageActivity"></activity>
         <activity android:name=".activity.AccessorMainActivity"></activity>
-          
+        <activity android:name=".activity.ReviewQueryActivity"></activity>
+        <activity android:name=".activity.ReviewCheckActivity"></activity>
+        <activity android:name=".activity.ReportQueryActivity"></activity>
+        <activity android:name=".activity.ReportCheckActivity"></activity>
+
+
     </application>
 
 </manifest>

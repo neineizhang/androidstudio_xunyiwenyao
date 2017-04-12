@@ -1,33 +1,33 @@
 package com.zll.xunyiwenyao.activity;
 
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.Toast;
+
 import com.zll.xunyiwenyao.R;
-//import com.zll.xunyiwenyao.db.MyDBHelper;
 import com.zll.xunyiwenyao.dbitem.Inspection;
 import com.zll.xunyiwenyao.dbitem.Utils;
 import com.zll.xunyiwenyao.util.TopBarView;
 import com.zll.xunyiwenyao.util.TopBarView.onTitleBarClickListener;
 import com.zll.xunyiwenyao.webservice.InspectionWebService;
 
-import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
-import android.widget.Button;
-
 import java.util.Calendar;
 
-public class InspectionCreateActivity extends Activity implements onTitleBarClickListener{
+public class InspectionCreateActivity extends Activity implements onTitleBarClickListener {
 
-	private  TopBarView topbar;
-	private EditText ins_name, ins_content, ins_date, ins_comment;
-	private EditText pat_name,  pat_age, pat_dia, doctor_name;
+	private TopBarView topbar;
+	private EditText ins_name, ins_location, ins_date, ins_comment;
+	private EditText pat_name,  pat_age, history, doctor_name;
 	private Button date_choose;
 	private Button btn_save, btn_commit;
 	private RadioGroup sex_rg;
@@ -35,6 +35,9 @@ public class InspectionCreateActivity extends Activity implements onTitleBarClic
 	private Calendar calendar;
 	private DatePickerDialog datePD;
 	private int sex= Utils.SEX.MAN.ordinal();
+	private Spinner spinner_type;
+	private String type;
+	private String arrs_type[];
 
 	private DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
 
@@ -60,6 +63,28 @@ public class InspectionCreateActivity extends Activity implements onTitleBarClic
 		ins_name = (EditText)findViewById(R.id.editText1);
 		pat_name = (EditText)findViewById(R.id.name_text);
 
+		spinner_type = (Spinner)findViewById(R.id.spinner_type);
+		arrs_type = getResources().getStringArray(R.array.listInspectionTypeArr);
+		ArrayAdapter<String> arrsTitleAdapter = new ArrayAdapter<String>(
+				InspectionCreateActivity.this, android.R.layout.simple_list_item_1,arrs_type);
+		spinner_type.setAdapter(arrsTitleAdapter);
+		spinner_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+									   int arg2, long arg3) {
+				// TODO Auto-generated method stub
+				type = arrs_type[arg2];
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+
 		sex_rg = (RadioGroup) findViewById(R.id.sex_rg);
 		sex_rb1 = (RadioButton)findViewById(R.id.sex_rb1);
 		sex_rb2 = (RadioButton)findViewById(R.id.sex_rb2);
@@ -77,8 +102,8 @@ public class InspectionCreateActivity extends Activity implements onTitleBarClic
 		});
 
 		pat_age = (EditText)findViewById(R.id.age_text);
-		pat_dia = (EditText)findViewById(R.id.clinical_diagnosis_text);
-		ins_content = (EditText)findViewById(R.id.inspection_text);
+		history = (EditText)findViewById(R.id.history_text);
+		ins_location = (EditText)findViewById(R.id.inspection_location_text);
 		doctor_name = (EditText)findViewById(R.id.doctor_text);
 		//自动填写doctor姓名
 		doctor_name.setText(Utils.LOGIN_DOCTOR.getRealName());
@@ -134,27 +159,28 @@ public class InspectionCreateActivity extends Activity implements onTitleBarClic
 	}
 	@Override
 	public void onRightClick() {
-		Toast.makeText(InspectionCreateActivity.this, "你点击了右侧按钮", Toast.LENGTH_SHORT).show();
+//		Toast.makeText(InspectionCreateActivity.this, "你点击了右侧按钮", Toast.LENGTH_SHORT).show();
 		
 	}
 	
 	public void addInspectionByWebService(){
 		if(ins_name.getText().toString().equals("")
 				||pat_name.getText().toString().equals("")
-				||ins_content.getText().toString().equals("")){
+				||ins_location.getText().toString().equals("")){
 			Toast.makeText(InspectionCreateActivity.this, "您输入的信息不完整！",
 					Toast.LENGTH_SHORT).show();
 		}else{
 			Inspection inspection = new Inspection();
 			inspection.setInspectionName(ins_name.getText().toString());
-			inspection.setInspectionText(ins_content.getText().toString());
+			inspection.setType(type);
+			inspection.setInspectionLocation(ins_location.getText().toString());
 			inspection.setInspectionDate(ins_date.getText().toString());
 			inspection.setInspectionComment(ins_comment.getText().toString());
 
 			inspection.setPatientName(pat_name.getText().toString());
 			inspection.setPatientSex(sex);
 			inspection.setPatientAge(pat_age.getText().toString());
-			inspection.setPatientDiag(pat_dia.getText().toString());
+			inspection.setPatientHistory(history.getText().toString());
 			inspection.setDoctor(Utils.LOGIN_DOCTOR);
 
 
@@ -170,20 +196,21 @@ public class InspectionCreateActivity extends Activity implements onTitleBarClic
 	public void commitInspectionByWebService(){
 		if(ins_name.getText().toString().equals("")
 				||pat_name.getText().toString().equals("")
-				||ins_content.getText().toString().equals("")){
+				||ins_location.getText().toString().equals("")){
 			Toast.makeText(InspectionCreateActivity.this, "您输入的信息不完整！",
 					Toast.LENGTH_SHORT).show();
 		}else{
 			Inspection inspection = new Inspection();
+			inspection.setType(type);
 			inspection.setInspectionName(ins_name.getText().toString());
-			inspection.setInspectionText(ins_content.getText().toString());
+			inspection.setInspectionLocation(ins_location.getText().toString());
 			inspection.setInspectionDate(ins_date.getText().toString());
 			inspection.setInspectionComment(ins_date.getText().toString());
 
 			inspection.setPatientName(pat_name.getText().toString());
 			inspection.setPatientSex(sex);
 			inspection.setPatientAge(pat_age.getText().toString());
-			inspection.setPatientDiag(pat_dia.getText().toString());
+			inspection.setPatientHistory(history.getText().toString());
 			inspection.setDoctor(Utils.LOGIN_DOCTOR);
 
 			inspection.setInspectionState(Utils.INSPECTION_STATUS.COMMITED.ordinal());

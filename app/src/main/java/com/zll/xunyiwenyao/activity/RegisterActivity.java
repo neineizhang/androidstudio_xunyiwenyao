@@ -211,7 +211,7 @@ public class RegisterActivity extends Activity implements TopBarView.onTitleBarC
     }
     @Override
     public void onRightClick() {
-        Toast.makeText(RegisterActivity.this, "你点击了右侧按钮", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(RegisterActivity.this, "你点击了右侧按钮", Toast.LENGTH_SHORT).show();
 
     }
 

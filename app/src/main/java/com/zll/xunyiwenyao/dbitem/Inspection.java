@@ -9,11 +9,12 @@ package com.zll.xunyiwenyao.dbitem;
 public class Inspection {
     private int id;     //系统自增的唯一id
     private String name;//检查单名称，必填项
+    private String type;//检查单类别，枚举类型，目前包括：心电图、X光、B超，以后可以添加
     private String pname;//患者名称，必填项
     private int psex;//患者性别
     private String page;//患者年龄
-    private String diagnose;//临床诊断
-    private String content;//检查单内容，必填项
+    private String history;//病史摘要
+    private String location;//申请检查部位，必填项
     private String date;//开具日期
     private String comment;//备注信息
     private int state;//状态，未提交，已提交
@@ -31,8 +32,8 @@ public class Inspection {
         this.pname = pat_name;
         this.psex = pat_sex;
         this.page = pat_age;
-        this.diagnose = pat_diag;
-        this.content = ins_text;
+        this.history = pat_diag;
+        this.location = ins_text;
         this.date = ins_date;
         this.comment = ins_comment;
         this.state = ins_state;
@@ -47,6 +48,9 @@ public class Inspection {
     public void setInspectionName(String ins_name) {
         this.name = ins_name;
     }
+
+    public String getType(){return type;}
+    public void setType(String type){this.type=type;}
 
     public String getPatientName() {
         return pname;
@@ -69,18 +73,18 @@ public class Inspection {
         this.page = age;
     }
 
-    public String getPatientDiag() {
-        return diagnose;
+    public String getPatientHistory() {
+        return history;
     }
-    public void setPatientDiag(String diag) {
-        this.diagnose = diag;
+    public void setPatientHistory(String history) {
+        this.history = history;
     }
 
-    public String getInspectionText() {
-        return content;
+    public String getInspectionLoaction() {
+        return location;
     }
-    public void setInspectionText(String text) {
-        this.content = text;
+    public void setInspectionLocation(String location) {
+        this.location = location;
     }
 
     public String getInspectionDate() {

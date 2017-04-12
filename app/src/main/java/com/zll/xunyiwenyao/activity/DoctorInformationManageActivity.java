@@ -119,7 +119,7 @@ public class DoctorInformationManageActivity extends Activity implements TopBarV
     }
     @Override
     public void onRightClick() {
-        Toast.makeText(DoctorInformationManageActivity.this, "你点击了右侧按钮", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(DoctorInformationManageActivity.this, "你点击了右侧按钮", Toast.LENGTH_SHORT).show();
 
     }
 }
