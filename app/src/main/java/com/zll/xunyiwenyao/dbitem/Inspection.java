@@ -19,16 +19,16 @@ public class Inspection {
     private String comment;//备注信息
     private int state;//状态，未提交，已提交
     private Doctor doctor;//开具检查单的医师，必填项
-    private boolean checked;
 
     public Inspection(){
 
     };
-    public Inspection(String ins_name, String pat_name, int pat_sex, String pat_age,
+    public Inspection(String ins_name, String type, String pat_name, int pat_sex, String pat_age,
                       String pat_diag, String ins_text, String ins_date, String ins_comment,
                       int ins_state, Doctor doctor){
         super();
         this.name = ins_name;
+        this.type = type;
         this.pname = pat_name;
         this.psex = pat_sex;
         this.page = pat_age;
@@ -38,9 +38,6 @@ public class Inspection {
         this.comment = ins_comment;
         this.state = ins_state;
         this.doctor = doctor;
-    }
-    public void setChecked(boolean checked) {
-        this.checked = checked;
     }
     public String getInspectionName() {
         return name;
@@ -115,7 +112,4 @@ public class Inspection {
         this.doctor = doctor;
     }
 
-    public boolean isChecked() {
-        return checked;
-    }
 }

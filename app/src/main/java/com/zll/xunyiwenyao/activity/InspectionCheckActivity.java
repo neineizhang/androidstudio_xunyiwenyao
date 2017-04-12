@@ -41,6 +41,10 @@ public class InspectionCheckActivity extends Activity implements TopBarView.onTi
     Doctor currDoctor = new Doctor();
     private Button btn_delete, btn_commit;
 
+    private RadioGroup sex_rg_new;
+    private RadioButton sex_r1_new, sex_r2_new;
+
+
     private DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
 
         @Override
@@ -172,7 +176,11 @@ public class InspectionCheckActivity extends Activity implements TopBarView.onTi
 
 
                         Inspection newins = new Inspection();
+                        newins = inspectionList.get(temp);
+
                         newins.setInspectionName(i_name.getText().toString());
+                        newins.setType(type.getText().toString());
+
                         newins.setPatientName(p_name.getText().toString());
 
                         newins.setPatientSex(sex);
@@ -182,8 +190,7 @@ public class InspectionCheckActivity extends Activity implements TopBarView.onTi
                         newins.setInspectionDate(date.getText().toString());
                         newins.setInspectionComment(comment.getText().toString());
 
-                        state= Utils.INSPECTION_STATUS.UNCOMMITED.ordinal();
-                        newins.setInspectionState(state);
+                        newins.setInspectionState(Utils.INSPECTION_STATUS.UNCOMMITED.ordinal());
                         newins.setDoctor(currDoctor);
 
                         InspectionWebService.updateInspectionByPosition(temp,newins);
