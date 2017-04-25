@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,6 +27,9 @@ import com.zll.xunyiwenyao.dbitem.Doctor;
 import com.zll.xunyiwenyao.dbitem.Review;
 import com.zll.xunyiwenyao.dbitem.Utils;
 import com.zll.xunyiwenyao.webservice.DoctorWebService;
+import com.zll.xunyiwenyao.webservice.real.InspectionWebService;
+
+import org.json.JSONException;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -51,6 +55,15 @@ public class LoginActivity extends Activity {
 
 		//myDBHelper = new MyDBHelper(login.this,"xywy_db",null, 1);
 //		db = myDBHelper.getReadableDatabase();
+		StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy);
+		try {
+			InspectionWebService.initDB();
+
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		select_doctor = (RadioGroup) findViewById(R.id.login_doctor_select);
 		login_entrylog = (Button) findViewById(R.id.login_entrylog);

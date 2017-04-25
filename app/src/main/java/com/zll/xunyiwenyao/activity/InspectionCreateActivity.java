@@ -19,7 +19,7 @@ import com.zll.xunyiwenyao.dbitem.Inspection;
 import com.zll.xunyiwenyao.dbitem.Utils;
 import com.zll.xunyiwenyao.util.TopBarView;
 import com.zll.xunyiwenyao.util.TopBarView.onTitleBarClickListener;
-import com.zll.xunyiwenyao.webservice.InspectionWebService;
+import com.zll.xunyiwenyao.webservice.real.InspectionWebService;
 
 import java.util.Calendar;
 
@@ -179,9 +179,14 @@ public class InspectionCreateActivity extends Activity implements onTitleBarClic
 
 			inspection.setPatientName(pat_name.getText().toString());
 			inspection.setPatientSex(sex);
-			inspection.setPatientAge(pat_age.getText().toString());
+			inspection.setPatientAge(Integer.parseInt(pat_age.getText().toString()));
+
+//!!!!!!			inspection.setPatientAge(pat_age.getText());
+
+			inspection.setPatientAge(45);
 			inspection.setPatientHistory(history.getText().toString());
-			inspection.setDoctor(Utils.LOGIN_DOCTOR);
+			inspection.setDoctorID(Utils.LOGIN_DOCTOR.getId());
+			inspection.setDoctorName(Utils.LOGIN_DOCTOR.getRealName());
 
 
 			inspection.setInspectionState(Utils.INSPECTION_STATUS.UNCOMMITED.ordinal());
@@ -209,9 +214,13 @@ public class InspectionCreateActivity extends Activity implements onTitleBarClic
 
 			inspection.setPatientName(pat_name.getText().toString());
 			inspection.setPatientSex(sex);
-			inspection.setPatientAge(pat_age.getText().toString());
+
+//	！！！		inspection.setPatientAge(pat_age.getText().toString());
+
+			inspection.setPatientAge(45);
 			inspection.setPatientHistory(history.getText().toString());
-			inspection.setDoctor(Utils.LOGIN_DOCTOR);
+			inspection.setDoctorID(Utils.LOGIN_DOCTOR.getId());
+			inspection.setDoctorName(Utils.LOGIN_DOCTOR.getRealName());
 
 			inspection.setInspectionState(Utils.INSPECTION_STATUS.COMMITED.ordinal());
 

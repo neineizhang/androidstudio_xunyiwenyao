@@ -20,10 +20,10 @@ public class InspectionWebService {
         Inspection inspection1 = null;
         Inspection inspection2 = null;
 
-        inspection1 = new Inspection("基本检查单","X光", "张三", Utils.SEX.MAN.ordinal(),"23","骨折","X光检查","2017-3-12","无", Utils.INSPECTION_STATUS.UNCOMMITED.ordinal(), Utils.LOGIN_DOCTOR);
-        inspection2 = new Inspection("B超检查单","B超","李思", Utils.SEX.WOMAN.ordinal(),"36","肠胃炎","B超检查","2017-1-15","无", Utils.INSPECTION_STATUS.COMMITED.ordinal(), Utils.LOGIN_DOCTOR);
-        inspectionList.add(inspection1);
-        inspectionList.add(inspection2);
+//        inspection1 = new Inspection("基本检查单","X光", "张三", Utils.SEX.MAN.ordinal(),"23","骨折","X光检查","2017-3-12","无", Utils.INSPECTION_STATUS.UNCOMMITED.ordinal(), Utils.LOGIN_DOCTOR);
+//        inspection2 = new Inspection("B超检查单","B超","李思", Utils.SEX.WOMAN.ordinal(),"36","肠胃炎","B超检查","2017-1-15","无", Utils.INSPECTION_STATUS.COMMITED.ordinal(), Utils.LOGIN_DOCTOR);
+//        inspectionList.add(inspection1);
+//        inspectionList.add(inspection2);
     }
 
     public static List<Inspection> getAllInspection() {return inspectionList;};

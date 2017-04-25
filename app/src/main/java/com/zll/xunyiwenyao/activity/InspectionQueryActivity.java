@@ -10,14 +10,14 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.zll.xunyiwenyao.R;
 import com.zll.xunyiwenyao.adapter.InspectionAdapter;
 import com.zll.xunyiwenyao.dbitem.Inspection;
 import com.zll.xunyiwenyao.util.TopBarView;
 import com.zll.xunyiwenyao.util.TopBarView.onTitleBarClickListener;
-import com.zll.xunyiwenyao.webservice.InspectionWebService;
+import com.zll.xunyiwenyao.webservice.real.InspectionWebService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +32,7 @@ public class InspectionQueryActivity extends Activity implements onTitleBarClick
     private AutoCompleteTextView autotext;
     private ArrayAdapter arrayAdapter;
     private ImageView im_search;
+    private TextView textView;
 
 
 
