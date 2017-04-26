@@ -26,7 +26,7 @@ import com.zll.xunyiwenyao.dbitem.Utils;
 import com.zll.xunyiwenyao.webservice.DoctorWebService;
 import com.zll.xunyiwenyao.webservice.PrescriptionWebService;
 
-public class PrescriptionExamineRefusedActivity extends Activity implements AdapterView.OnItemClickListener {
+public class PrescriptionExamineRefusedActivity extends Activity implements OnItemClickListener {
 
     private ArrayList<Prescription> examineprescriptionList = null;
     private ListView examine_lv;

@@ -32,7 +32,7 @@ public class PrescriptionQueryActivity extends TabActivity {
 
 		query_all =( RadioButton) findViewById(R.id.query_all);
 		query_tabhost=this.getTabHost();
-		TabHost.TabSpec spec;
+		TabSpec spec;
 		Intent intent;
 
 		intent = new Intent(this,PrescriptionQueryAllPrescriptionActivity.class);

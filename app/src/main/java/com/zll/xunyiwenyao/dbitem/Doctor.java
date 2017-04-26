@@ -5,22 +5,22 @@ package com.zll.xunyiwenyao.dbitem;
  */
 
 public class Doctor {
-    private int id;
-    private String user_name;
-    private String real_name;
-    private int sex;
-    private int type;
-    private String passwd;
+    private int id;//系统自增
+    private String user_name;//用户名，注册时填的唯一名称
+    private String real_name;//真实姓名
+    private int sex;//性别，Enum写在utils文件中
+    private int type;//类型，Enum写在utils文件中
+    private String passwd;//密码
 
-    private String photo;
-    private String license;
+    private String photo;//医生照片路径
+    private String license;//执业证书路径
 
-    private String title;
-    private String hospital;
-    private String department;
-    private String goodat;
-    private String profile;
-    private String register_time;
+    private String title;//职位
+    private String hospital;//医院
+    private String department;//科室
+    private String goodat;//删除
+    private String profile;//个人资料
+    private String register_time;//注册时间
 
     public Doctor() {
     }

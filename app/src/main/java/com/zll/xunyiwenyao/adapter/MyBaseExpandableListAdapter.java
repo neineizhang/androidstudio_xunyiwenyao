@@ -79,9 +79,9 @@ public class MyBaseExpandableListAdapter extends BaseExpandableListAdapter {
         ViewHolderGroup groupHolder;
         if(convertView == null){
             convertView = LayoutInflater.from(mContext).inflate(
-                    R.layout.item_exlist_group, parent, false);
+                    layout.item_exlist_group, parent, false);
             groupHolder = new ViewHolderGroup();
-            groupHolder.tv_group_name = (TextView) convertView.findViewById(R.id.tv_group_name);
+            groupHolder.tv_group_name = (TextView) convertView.findViewById(id.tv_group_name);
             convertView.setTag(groupHolder);
         }else{
             groupHolder = (ViewHolderGroup) convertView.getTag();
@@ -96,10 +96,10 @@ public class MyBaseExpandableListAdapter extends BaseExpandableListAdapter {
         ViewHolderItem itemHolder;
         if(convertView == null){
             convertView = LayoutInflater.from(mContext).inflate(
-                    R.layout.prescription_create_itemlist, parent, false);
+                    layout.prescription_create_itemlist, parent, false);
             itemHolder = new ViewHolderItem();
-            itemHolder.img_icon = (ImageView) convertView.findViewById(R.id.img_icon);
-            itemHolder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
+            itemHolder.img_icon = (ImageView) convertView.findViewById(id.img_icon);
+            itemHolder.tv_name = (TextView) convertView.findViewById(id.tv_name);
             convertView.setTag(itemHolder);
         }else{
             itemHolder = (ViewHolderItem) convertView.getTag();

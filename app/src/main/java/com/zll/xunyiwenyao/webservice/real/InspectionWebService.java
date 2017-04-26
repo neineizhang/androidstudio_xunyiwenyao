@@ -1,4 +1,4 @@
-package com.zll.xunyiwenyao.webservice;
+package com.zll.xunyiwenyao.webservice.real;
 
 import com.zll.xunyiwenyao.dbitem.Inspection;
 import com.zll.xunyiwenyao.util.HttpHelper;

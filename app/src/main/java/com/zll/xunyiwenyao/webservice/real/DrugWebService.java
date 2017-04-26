@@ -1,10 +1,10 @@
-package com.zll.xunyiwenyao.webservice;
+package com.zll.xunyiwenyao.webservice.real;
 
+import com.zll.xunyiwenyao.dbitem.Doctor;
 import com.zll.xunyiwenyao.dbitem.Drug;
 import com.zll.xunyiwenyao.util.HttpHelper;
 import com.zll.xunyiwenyao.util.JsonHelper;
 import com.zll.xunyiwenyao.webitem.ResponseItem;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +22,22 @@ public class DrugWebService {
 
     private static List<Drug> druglist;
 
+//    static {
+//        Drug drug = null;
+//        druglist = new ArrayList<Drug>();
+//        drug = new Drug(1, "Drug A", "12g X 10", "12.00", "one day one time");
+//        druglist.add(drug);
+//        drug = new Drug(2, "Drug B", "12g X 30", "22.00", "one day 3 time");
+//        druglist.add(drug);
+//        drug = new Drug(3, "Drug C", "1g X 10", "72.00", "one day 2 time");
+//        druglist.add(drug);
+//        drug = new Drug(4, "Drug D", "12g X 13", "32.00", "one day one time");
+//        druglist.add(drug);
+//        drug = new Drug(5, "Drug E", "12g X 120", "22.00", "one day one time");
+//        druglist.add(drug);
+//    }
+
+    
     public static void initDB() throws JSONException{
 		String url = "http://222.29.100.155/b2b2c/api/mobile/drug/getDrug.do";
 		
@@ -61,7 +77,7 @@ public class DrugWebService {
 			e.printStackTrace();
 		}
 	}
-
+    
     public static List<Drug> getAllDrug() {
 
         return druglist;

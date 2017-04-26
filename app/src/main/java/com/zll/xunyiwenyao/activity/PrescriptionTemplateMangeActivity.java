@@ -21,6 +21,7 @@ import com.zll.xunyiwenyao.R;
 import com.zll.xunyiwenyao.activity.PrescriptionCreateMainActivity.ScrollAdapter;
 import com.zll.xunyiwenyao.dbitem.Drug;
 import com.zll.xunyiwenyao.dbitem.PrescriptionTemplate;
+import com.zll.xunyiwenyao.dbitem.Prescription_drugmap;
 import com.zll.xunyiwenyao.view.PrescriptionTemplateScrollView;
 import com.zll.xunyiwenyao.webservice.PrescriptionTemplateWebService;
 
@@ -66,19 +67,27 @@ public class PrescriptionTemplateMangeActivity extends Activity implements OnCli
 			}else{
 				//chufangmingcheng.setText(template_name);
 				
-				Map<Drug, Integer> drugmap = prescriptionTemplate.getDrugmap();
+				//Map<Drug, Integer> drugmap = prescriptionTemplate.getDrugmap();
+			    List<Prescription_drugmap> druglist = prescriptionTemplate.getDruglist();
 				List<Map<String, String>> datas = (List<Map<String, String>>) ((ScrollAdapter2)template_drugs_lv.getAdapter()).getData();
 				if(datas == null){
 					datas = new ArrayList<Map<String,String>>();
 				}
-				for(Drug drug : drugmap.keySet()){
+				//for(Drug drug : drugmap.keySet()){
+				for(Prescription_drugmap drugitem : druglist){
 					Map<String, String> tempdata = new HashMap<String, String>();
-					tempdata.put("title", String.valueOf(drug.getId()));
-					tempdata.put("data_" + 1, drug.getName());
-					tempdata.put("data_" + 2, drug.getSpecification());
-					tempdata.put("data_" + 3, drugmap.get(drug)+"");
-					tempdata.put("data_" + 4, drug.getPrice());
-					tempdata.put("data_" + 5, drug.getDescription());
+//					tempdata.put("title", String.valueOf(drug.getId()));
+//					tempdata.put("data_" + 1, drug.getName());
+//					tempdata.put("data_" + 2, drug.getSpecification());
+//					tempdata.put("data_" + 3, drugmap.get(drug)+"");
+//					tempdata.put("data_" + 4, drug.getPrice());
+//					tempdata.put("data_" + 5, drug.getDescription());
+					tempdata.put("title", String.valueOf(drugitem.getDrug().getId()));
+					tempdata.put("data_" + 1, drugitem.getDrug().getName());
+					tempdata.put("data_" + 2, drugitem.getDrug().getSpecification());
+					tempdata.put("data_" + 3, drugitem.getCount()+"");
+					tempdata.put("data_" + 4, drugitem.getDrug().getDosage_form());
+					tempdata.put("data_" + 5, drugitem.getDescription());
 					datas.add(tempdata);
 				}
 				((ScrollAdapter2)template_drugs_lv.getAdapter()).setData(datas);
@@ -95,7 +104,7 @@ public class PrescriptionTemplateMangeActivity extends Activity implements OnCli
   
 	private void initViews() {
 		List<Map<String, String>> datas = new ArrayList<Map<String,String>>();
-		Map<String, String> data = null;
+		//Map<String, String> data = null;
 		PrescriptionTemplateScrollView headerScroll = (PrescriptionTemplateScrollView) findViewById(R.id.template_item_scroll_title);
 		
 		templateHScrollViews.add(headerScroll);
@@ -204,12 +213,7 @@ public class PrescriptionTemplateMangeActivity extends Activity implements OnCli
 				v.setTag(views);
 				if(holders_lt.get(position) == null){
 					holders_lt.set(position, views);
-//					Log.d("rxz", position+":"+this.datas.get(position).get(from[0]).toString());
-//					Log.d("rxz", position+":"+this.datas.get(position).get(from[1]).toString());
-//					Log.d("rxz", position+":"+this.datas.get(position).get(from[2]).toString());
-//					Log.d("rxz", position+":"+this.datas.get(position).get(from[3]).toString());
-//					Log.d("rxz", position+":"+this.datas.get(position).get(from[4]).toString());
-//					Log.d("rxz", position+":"+this.datas.get(position).get(from[5]).toString());
+
 				}
 			}
 			View[] holders = (View[]) v.getTag();
@@ -222,7 +226,7 @@ public class PrescriptionTemplateMangeActivity extends Activity implements OnCli
 	}
 	
 	//锟斤拷锟皆碉拷锟斤拷锟斤拷录锟� 
-	protected View.OnClickListener clickListener = new View.OnClickListener() {
+	protected OnClickListener clickListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			//Toast.makeText(PrescriptionTemplateMangeActivity.this, ((TextView)v).getText(), Toast.LENGTH_SHORT).show();
@@ -236,10 +240,16 @@ public class PrescriptionTemplateMangeActivity extends Activity implements OnCli
 		case R.id.template_manage_save:
 			//// get update info
 			List<Map<String, String>> datas = (List<Map<String, String>>) ((ScrollAdapter2)template_drugs_lv.getAdapter()).getData();
-			for(Drug drug : prescriptionTemplate.getDrugmap().keySet()){
+			//for(Drug drug : prescriptionTemplate.getDrugmap().keySet()){
+			//for(Prescription_drugmap drugitem : prescriptionTemplate.getDruglist()){
+			List<Prescription_drugmap> druglist = prescriptionTemplate.getDruglist();
+			for(int i = 0; i < druglist.size(); i++){
+				Prescription_drugmap drugitem = druglist.get(i);
 				for(Map<String, String> data_map : datas){
-					if(drug.getName().equals(data_map.get("data_1"))){
-						prescriptionTemplate.getDrugmap().put(drug, Integer.parseInt(data_map.get("data_3")));
+					if(drugitem.getDrug().getId() == Integer.parseInt(data_map.get("title"))){
+						drugitem.setCount(Integer.parseInt(data_map.get("data_3")));
+						drugitem.setDescription(data_map.get("data_5"));
+						prescriptionTemplate.getDruglist().set(i, drugitem);
 					}
 				}
 			}

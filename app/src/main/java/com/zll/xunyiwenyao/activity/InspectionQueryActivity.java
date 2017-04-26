@@ -17,7 +17,7 @@ import com.zll.xunyiwenyao.adapter.InspectionAdapter;
 import com.zll.xunyiwenyao.dbitem.Inspection;
 import com.zll.xunyiwenyao.util.TopBarView;
 import com.zll.xunyiwenyao.util.TopBarView.onTitleBarClickListener;
-import com.zll.xunyiwenyao.webservice.real.InspectionWebService;
+import com.zll.xunyiwenyao.webservice.InspectionWebService;
 
 import java.util.ArrayList;
 import java.util.List;

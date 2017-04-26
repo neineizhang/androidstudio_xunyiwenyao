@@ -3,14 +3,17 @@ package com.zll.xunyiwenyao.activity;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 
+import org.json.JSONException;
+
 import com.zll.xunyiwenyao.R;
 import com.zll.xunyiwenyao.dbitem.Doctor;
 import com.zll.xunyiwenyao.dbitem.Utils;
 import com.zll.xunyiwenyao.webservice.DoctorWebService;
+import com.zll.xunyiwenyao.webservice.DrugWebService;
+import com.zll.xunyiwenyao.webservice.InspectionWebService;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.TextUtils;
@@ -21,18 +24,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
-import com.zll.xunyiwenyao.R;
-import com.zll.xunyiwenyao.dbitem.Doctor;
-import com.zll.xunyiwenyao.dbitem.Review;
-import com.zll.xunyiwenyao.dbitem.Utils;
-import com.zll.xunyiwenyao.webservice.DoctorWebService;
-import com.zll.xunyiwenyao.webservice.real.InspectionWebService;
-
-import org.json.JSONException;
-
-import java.math.BigInteger;
-import java.security.MessageDigest;
 
 //import com.zll.xunyiwenyao.db.MyDBHelper;
 
@@ -52,18 +43,21 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.login);
-
-		//myDBHelper = new MyDBHelper(login.this,"xywy_db",null, 1);
-//		db = myDBHelper.getReadableDatabase();
+		
 		StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 		try {
+			DoctorWebService.initDB();
+			DrugWebService.initDB();
 			InspectionWebService.initDB();
-
+			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		//myDBHelper = new MyDBHelper(login.this,"xywy_db",null, 1);
+//		db = myDBHelper.getReadableDatabase();
 
 		select_doctor = (RadioGroup) findViewById(R.id.login_doctor_select);
 		login_entrylog = (Button) findViewById(R.id.login_entrylog);
