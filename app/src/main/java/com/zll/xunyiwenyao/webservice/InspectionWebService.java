@@ -19,6 +19,8 @@ import java.util.Map;
 
 public class InspectionWebService {
     private static List<Inspection> inspectionList;
+    private static List<String> typeList;
+
 
     public static void initDB() throws JSONException {
         String url = "http://222.29.100.155/b2b2c/api/mobile/recipe/getInspection.do?";
@@ -63,6 +65,30 @@ public class InspectionWebService {
 //            System.out.println("success add:"+JsonHelper.toJSON(inspection));
 //        }
 
+        //获取检查单的所有类别
+        String listURL = "http://222.29.100.155/b2b2c/api/mobile/recipe/listAllInspectionType.do?";
+
+        typeList = new ArrayList<String>();
+        s = HttpHelper.sendGet(listURL, "");
+        m = JsonHelper.toMap(s);
+        responditem = new  ResponseItem();
+        responditem = (ResponseItem) JsonHelper.toJavaBean(responditem, m);
+        System.out.println(JsonHelper.toJSON(responditem));
+        System.out.println("___________");
+
+
+        jo = new JSONObject(s);
+        ja = jo.getJSONArray("data");
+        System.out.println(ja.length());
+
+        for(int i = 0; i < ja.length(); i++){
+            JSONObject jsonobj = (JSONObject) ja.get(i);
+            typeList.add(jsonobj.getString("type_name"));
+//            arrs_type[i]=jsonobj.getString("type_name");
+            System.out.println("success add:"+jsonobj.getString("type_name"));
+        }
+
+
     }
     public static void main(String[] args) {
         try {
@@ -78,7 +104,7 @@ public class InspectionWebService {
     public static void addInspection(Inspection item){
 
         inspectionList.add(item);
-        String url = "http://222.29.100.155/b2b2c/api/mobile/recipe/addInspection.do?";
+//        String url = "http://222.29.100.155/b2b2c/api/mobile/recipe/addInspection.do?";
 
 //        String s = HttpHelper.sendGet(url, item); 如何生成jsonString
     }
@@ -92,6 +118,12 @@ public class InspectionWebService {
     }
     public static void deleteInspectionByPosition(int position){
         inspectionList.remove(position);
+    }
+
+    public static String[] listAllInspectionType(){
+        String[] arrs_type =  new String[typeList.size()];
+        typeList.toArray(arrs_type);
+        return arrs_type;
     }
 
 }

@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -21,23 +22,26 @@ import com.zll.xunyiwenyao.util.TopBarView;
 import com.zll.xunyiwenyao.util.TopBarView.onTitleBarClickListener;
 import com.zll.xunyiwenyao.webservice.InspectionWebService;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class InspectionCreateActivity extends Activity implements onTitleBarClickListener {
 
 	private TopBarView topbar;
 	private EditText ins_name, ins_location, ins_date, ins_comment;
-	private EditText pat_name,  pat_age, history, doctor_name;
-	private Button date_choose;
+	private EditText pat_name,   history, doctor_name;
 	private Button btn_save, btn_commit;
 	private RadioGroup sex_rg;
 	private RadioButton sex_rb1, sex_rb2;
 	private Calendar calendar;
 	private DatePickerDialog datePD;
 	private int sex= Utils.SEX.MAN.ordinal();
+	private int age = 0;
 	private Spinner spinner_type;
 	private String type;
 	private String arrs_type[];
+	private NumberPicker pat_age;
+	int minAge = 1, maxAge = 100;
 
 	private DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
 
@@ -64,7 +68,10 @@ public class InspectionCreateActivity extends Activity implements onTitleBarClic
 		pat_name = (EditText)findViewById(R.id.name_text);
 
 		spinner_type = (Spinner)findViewById(R.id.spinner_type);
-		arrs_type = getResources().getStringArray(R.array.listInspectionTypeArr);
+
+//		arrs_type = getResources().getStringArray(R.array.listInspectionTypeArr);
+		arrs_type = InspectionWebService.listAllInspectionType();
+
 		ArrayAdapter<String> arrsTitleAdapter = new ArrayAdapter<String>(
 				InspectionCreateActivity.this, android.R.layout.simple_list_item_1,arrs_type);
 		spinner_type.setAdapter(arrsTitleAdapter);
@@ -101,7 +108,20 @@ public class InspectionCreateActivity extends Activity implements onTitleBarClic
 			}
 		});
 
-		pat_age = (EditText)findViewById(R.id.age_text);
+		pat_age = (NumberPicker)findViewById(R.id.age_text);
+		pat_age.setMinValue(minAge);
+		pat_age.setMaxValue(maxAge);
+		pat_age.setValue(1);
+		pat_age.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+
+			public void onValueChange(NumberPicker packer, int oldVal, int newVal) {
+				// TODO Auto-generated method stub
+				age = newVal;
+			}
+		});
+
+//		pat_age = (EditText)findViewById(R.id.age_text);
+//		pat_age.setText("0");
 		history = (EditText)findViewById(R.id.history_text);
 		ins_location = (EditText)findViewById(R.id.inspection_location_text);
 		doctor_name = (EditText)findViewById(R.id.doctor_text);
@@ -115,7 +135,7 @@ public class InspectionCreateActivity extends Activity implements onTitleBarClic
 		int day = calendar.get(calendar.DAY_OF_MONTH);
 		datePD = new DatePickerDialog(InspectionCreateActivity.this,
 				listener, year, month, day);
-		date_choose = (Button)findViewById(R.id.date_choose);
+
 
 		ins_comment = (EditText)findViewById(R.id.comment_text);
 
@@ -123,14 +143,10 @@ public class InspectionCreateActivity extends Activity implements onTitleBarClic
 		btn_commit = (Button)findViewById(R.id.button_update);
 
 		//日期选择按钮
-		date_choose.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				datePD.show();
-			}
-		});
+		SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String date = sDateFormat.format(new java.util.Date());
+		ins_date.setText(date);
+		ins_date.setEnabled(false);
 		//保存按钮
 		btn_save.setOnClickListener(new View.OnClickListener() {
 
@@ -179,20 +195,17 @@ public class InspectionCreateActivity extends Activity implements onTitleBarClic
 
 			inspection.setPatientName(pat_name.getText().toString());
 			inspection.setPatientSex(sex);
-			inspection.setPatientAge(Integer.parseInt(pat_age.getText().toString()));
-
-//!!!!!!			inspection.setPatientAge(pat_age.getText());
-
-			inspection.setPatientAge(45);
 			inspection.setPatientHistory(history.getText().toString());
+//			inspection.setPatientAge(Integer.parseInt(pat_age.getText().toString()));
+			inspection.setPatientAge(age);
 			inspection.setDoctorID(Utils.LOGIN_DOCTOR.getId());
 			inspection.setDoctorName(Utils.LOGIN_DOCTOR.getRealName());
 
 
 			inspection.setInspectionState(Utils.INSPECTION_STATUS.UNCOMMITED.ordinal());
 
-			InspectionWebService.addInspection(inspection);
 
+			InspectionWebService.addInspection(inspection);
 			Toast.makeText(InspectionCreateActivity.this, "检查单保存成功", Toast.LENGTH_SHORT).show();
 			finish();
 		}
@@ -217,7 +230,7 @@ public class InspectionCreateActivity extends Activity implements onTitleBarClic
 
 //	！！！		inspection.setPatientAge(pat_age.getText().toString());
 
-			inspection.setPatientAge(45);
+			inspection.setPatientAge(age);
 			inspection.setPatientHistory(history.getText().toString());
 			inspection.setDoctorID(Utils.LOGIN_DOCTOR.getId());
 			inspection.setDoctorName(Utils.LOGIN_DOCTOR.getRealName());

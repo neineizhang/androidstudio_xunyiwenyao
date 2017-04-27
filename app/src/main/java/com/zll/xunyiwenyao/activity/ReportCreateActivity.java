@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.BaseAdapter;
@@ -31,9 +32,11 @@ import android.widget.HorizontalScrollView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -44,7 +47,7 @@ import java.util.Map;
 public class ReportCreateActivity extends Activity implements onTitleBarClickListener{
 	private  TopBarView topbar;
 	private EditText report_name, feature, event_date,report_date, doctor_name, comment;
-	private Button btn_event_choose, btn_report_choose, btn_commit;
+	private Button btn_event_choose,  btn_commit;
 	private Calendar calendar;
 	private DatePickerDialog eventDatePD,reportDatePD;
 	private Button btn_drug_add;//添加药品按钮
@@ -61,6 +64,9 @@ public class ReportCreateActivity extends Activity implements onTitleBarClickLis
 	private DrugListAdapter drugListAdapter;
 	private List<Integer> drug_id_list = new ArrayList<Integer>();
 	private List<String> drug_name_list = new ArrayList<String>();
+	private Spinner spinner_level;
+    private String level;
+	private String arrs_level[]={"新的","严重","一般"};
 
 
 //	public HorizontalScrollView mTouchView;
@@ -104,10 +110,32 @@ public class ReportCreateActivity extends Activity implements onTitleBarClickLis
 		comment=(EditText)findViewById(R.id.comment_text);
 
 		btn_event_choose=(Button)findViewById(R.id.event_date_choose);
-		btn_report_choose=(Button)findViewById(R.id.reprot_date_choose);
+
 		btn_commit=(Button)findViewById(R.id.button_commit);
 
 		btn_drug_add = (Button)findViewById(R.id.add_drug);
+		//重要程度
+		spinner_level = (Spinner)findViewById(R.id.spinner_level);
+
+
+		ArrayAdapter<String> arrsAdapter = new ArrayAdapter<String>(ReportCreateActivity.this, android.R.layout.simple_list_item_1,arrs_level);
+		spinner_level.setAdapter(arrsAdapter);
+		spinner_level.setAdapter(arrsAdapter);
+		spinner_level.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+									   int arg2, long arg3) {
+				// TODO Auto-generated method stub
+				level = arrs_level[arg2];
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		//添加药品按钮
 		initViews();
@@ -171,29 +199,10 @@ public class ReportCreateActivity extends Activity implements onTitleBarClickLis
 		//自动填写医生
 		doctor_name.setText(Utils.LOGIN_DOCTOR.getRealName().toString());
 		//日期选择按钮
-		calendar = Calendar.getInstance();
-		int year = calendar.get(calendar.YEAR);
-		int month = calendar.get(calendar.MONTH);
-		int day = calendar.get(calendar.DAY_OF_MONTH);
-		eventDatePD = new DatePickerDialog(ReportCreateActivity.this, eventDatelistener, year, month, day);
-		btn_event_choose.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				eventDatePD.show();
-			}
-		});
-
-		reportDatePD = new DatePickerDialog(ReportCreateActivity.this, reportDatelistener, year, month, day);
-		btn_report_choose.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				reportDatePD.show();
-			}
-		});
+		SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String date = sDateFormat.format(new java.util.Date());
+		report_date.setText(date);
+		report_date.setEnabled(false);
 		//提交按钮
 		btn_commit.setOnClickListener(new View.OnClickListener() {
 
@@ -215,6 +224,7 @@ public class ReportCreateActivity extends Activity implements onTitleBarClickLis
 		}else{
 			Report report = new Report();
 			report.setName(report_name.getText().toString());
+			report.setLever(level);
 			report.setFeature(feature.getText().toString());
 			report.setEventDate(event_date.getText().toString());
 			report.setReportDate(report_date.getText().toString());

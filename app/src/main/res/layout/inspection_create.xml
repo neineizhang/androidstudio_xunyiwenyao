@@ -136,6 +136,7 @@
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
 					android:layout_weight="1"
+					android:layout_gravity="center"
 					android:text="年龄" />
 				<View
 					android:layout_width="1px"
@@ -143,14 +144,17 @@
 					android:layout_gravity="center_horizontal"
 					android:background="#BFBFBF" />
 
-				<EditText
+				<NumberPicker
 					android:id="@+id/age_text"
 					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_weight="3" />
+					android:layout_height="35dp"
+					android:layout_weight="3"/>
+					<!--android:inputType="number"/>-->
 
 			</LinearLayout>
 			</LinearLayout>
+
+
 
 
 
@@ -311,7 +315,7 @@
 	                android:layout_width="0dp"
 	                android:layout_height="wrap_content"
 	                android:text="申请时间"
-	                android:layout_weight="1"/>
+	                android:layout_weight="1.5"/>
 	             <View  
 			    	android:layout_width="1px" 
 			    	android:layout_height="match_parent"
@@ -322,13 +326,9 @@
 	                android:id="@+id/date_text"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
-	                android:layout_weight="2.2"
+	                android:layout_weight="3"
 	                android:inputType="date"/>
-				<Button
-					android:id="@+id/date_choose"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="选择" />
+
 	
 	        </LinearLayout>
 

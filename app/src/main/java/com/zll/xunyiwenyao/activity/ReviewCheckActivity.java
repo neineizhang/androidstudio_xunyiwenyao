@@ -46,7 +46,7 @@ public class ReviewCheckActivity extends Activity implements TopBarView.onTitleB
         review_content.setText(reviewList.get(temp).getContent().toString());
         review_date.setText(reviewList.get(temp).getDate().toString());
         review_commet.setText(reviewList.get(temp).getComment().toString());
-        doctor_name.setText(reviewList.get(temp).getDoctor().getRealName().toString());
+        doctor_name.setText(reviewList.get(temp).getDoctorName().toString());
     }
     @Override
     public void onBackClick() {

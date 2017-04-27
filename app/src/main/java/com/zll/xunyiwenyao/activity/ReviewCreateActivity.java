@@ -32,6 +32,7 @@ import com.zll.xunyiwenyao.view.PrescriptionCreateScrollView;
 import com.zll.xunyiwenyao.webservice.DrugWebService;
 import com.zll.xunyiwenyao.webservice.ReviewWebService;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -43,7 +44,7 @@ public class ReviewCreateActivity extends Activity implements onTitleBarClickLis
 
 	private TopBarView topbar;
 	private EditText review_name, drug_name, review_content, review_date, doctor_name, review_commet;
-	private Button btn_commit, btn_date_choose;
+	private Button btn_commit;
 	private Calendar calendar;
 	private DatePickerDialog datePD;
 	private AlertDialog alert = null;
@@ -92,7 +93,7 @@ public class ReviewCreateActivity extends Activity implements onTitleBarClickLis
 		doctor_name = (EditText)findViewById(R.id.doctor_text);
 
 
-		btn_date_choose = (Button)findViewById(R.id.date_choose);
+
 		btn_commit = (Button)findViewById(R.id.button_commit);
 
 		//药品选择
@@ -152,19 +153,11 @@ public class ReviewCreateActivity extends Activity implements onTitleBarClickLis
 		//自动填写医生
 		doctor_name.setText(Utils.LOGIN_DOCTOR.getRealName().toString());
 		//日期选择按钮
-		calendar = Calendar.getInstance();
-		int year = calendar.get(calendar.YEAR);
-		int month = calendar.get(calendar.MONTH);
-		int day = calendar.get(calendar.DAY_OF_MONTH);
-		datePD = new DatePickerDialog(ReviewCreateActivity.this, listener, year, month, day);
-		btn_date_choose.setOnClickListener(new View.OnClickListener() {
+		SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String date = sDateFormat.format(new java.util.Date());
+		review_date.setText(date);
+		review_date.setEnabled(false);
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				datePD.show();
-			}
-		});
 		//提交按钮
 		btn_commit.setOnClickListener(new View.OnClickListener() {
 
@@ -190,7 +183,8 @@ public class ReviewCreateActivity extends Activity implements onTitleBarClickLis
 			review.setDrugID(drug_id);
 			review.setContent(review_content.getText().toString());
 			review.setDate(review_date.getText().toString());
-			review.setDoctor(Utils.LOGIN_DOCTOR);
+			review.setDoctorID(Utils.LOGIN_DOCTOR.getId());
+			review.setDoctorName(Utils.LOGIN_DOCTOR.getRealName());
 			review.setComment(review_commet.getText().toString());
 			ReviewWebService.addReview(review);
 			Toast.makeText(ReviewCreateActivity.this, "药品评价提交成功！", Toast.LENGTH_SHORT).show();

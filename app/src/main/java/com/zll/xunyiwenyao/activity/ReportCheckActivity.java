@@ -26,7 +26,7 @@ import java.util.List;
 
 public class ReportCheckActivity extends Activity implements TopBarView.onTitleBarClickListener{
     private TopBarView topbar;
-    private EditText report_name, feature, event_date,report_date, doctor_name, comment;
+    private EditText report_name, feature, event_date,report_date, doctor_name, comment, level;
     private List<Report> reportList = new ArrayList<Report>();
     private ListView drugs_lv;
     private DrugListAdapter drugListAdapter;
@@ -51,10 +51,12 @@ public class ReportCheckActivity extends Activity implements TopBarView.onTitleB
         report_date = (EditText)findViewById(R.id.report_date_text);
         doctor_name = (EditText)findViewById(R.id.doctor_text);
         comment=(EditText)findViewById(R.id.comment_text);
+        level = (EditText)findViewById(R.id.level_text);
 
         reportList = ReportWebService.getAllReport();
 
         report_name.setText(reportList.get(temp).getName().toString());
+        level.setText(reportList.get(temp).getLever().toString());
         feature.setText(reportList.get(temp).getFeature().toString());
         event_date.setText(reportList.get(temp).getEvent_Date().toString());
         report_date.setText(reportList.get(temp).getReportDate().toString());

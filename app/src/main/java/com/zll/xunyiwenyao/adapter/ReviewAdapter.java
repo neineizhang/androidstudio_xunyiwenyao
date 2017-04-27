@@ -59,7 +59,7 @@ public class ReviewAdapter extends BaseAdapter {
 
         list_name.setText(itemlist.get(position).getDrugName().toString());
         list_date.setText(itemlist.get(position).getDate().toString());
-        list_doctor.setText(itemlist.get(position).getDoctor().getRealName().toString());
+        list_doctor.setText(itemlist.get(position).getDoctorName().toString());
         return view;
     }
 }
