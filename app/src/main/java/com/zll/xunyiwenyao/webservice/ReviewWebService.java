@@ -38,19 +38,16 @@ public class ReviewWebService {
         Map m = JsonHelper.toMap(s);
         ResponseItem responditem = new  ResponseItem();
         responditem = (ResponseItem) JsonHelper.toJavaBean(responditem, m);
-        System.out.println(JsonHelper.toJSON(responditem));
-        System.out.println("___________");
 
 
         JSONObject jo = new JSONObject(s);
         JSONArray ja = jo.getJSONArray("data");
-        System.out.println(ja.length());
 
         Review review = new Review();
         reviewlist = new ArrayList<Review>();
         for(int i = 0; i < ja.length(); i++){
             JSONObject jsonobj = (JSONObject) ja.get(i);
-            review= new Review(jsonobj.getInt("drugReview_id"),jsonobj.getString("name"),
+            review= new Review(jsonobj.getInt("drugReview_id"),jsonobj.getString("name"),jsonobj.getInt("drug_id"),
                     jsonobj.getString("drug_name"), jsonobj.getString("content"),
                     jsonobj.getString("date_text"), jsonobj.getInt("doctor_id"),
                     jsonobj.getString("doctor_name"), jsonobj.getString("comment"));
@@ -61,11 +58,33 @@ public class ReviewWebService {
     }
 
     public static void addReview(Review item){
-        reviewlist.add(item);
+
+        try {
+            //远程添加
+            String jsString = getJsonString(item);
+            String url = "http://222.29.100.155/b2b2c/api/mobile/drug/addDrugReview.do";
+            System.out.println(url+"?"+jsString);
+            String s = HttpHelper.sendPost(url, jsString);
+            System.out.println(s);
+
+            //更新本地list
+            initDB();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     public static List<Review> getAllReview(){
         return reviewlist;
+    }
+    public static String getJsonString(Review item){
+        String jsonString = "drugReview_id="+item.getReviewID()+"&name="+item.getName()
+                +"&drug_id="+item.getDrugID()
+                +"&drug_name="+item.getDrugName()+"&content="+item.getContent()
+                +"&date_text="+item.getDate()+"&doctor_id="+item.getDoctorID()
+                +"&doctor_name="+item.getDoctorName()+"&comment="+item.getComment();
+        return  jsonString;
     }
 
 }

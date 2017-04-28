@@ -43,6 +43,7 @@ public class InspectionWebService {
                     jsonobj.getString("inspection_type"), jsonobj.getString("pname"),
                     jsonobj.getInt("psex"),  jsonobj.getInt("page"),
                     jsonobj.getString("history"), jsonobj.getString("location"),
+                    jsonobj.getLong("create_date"),
                     jsonobj.getString("create_date_text"), jsonobj.getString("comment"),
                             jsonobj.getInt("status"), jsonobj.getInt("doctor_id"),
                     jsonobj.getString("doctor_name"));

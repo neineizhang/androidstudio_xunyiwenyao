@@ -24,7 +24,7 @@ public class Inspection {
 
     public Inspection(){};
     public Inspection(int id, String inspection_name, String inspection_type, String pname,
-                      int psex,  int page, String history, String location,
+                      int psex,  int page, String history, String location, long create_date,
                       String create_date_text, String comment, int status, int doctor_id,
                       String doctor_name){
         super();
@@ -36,12 +36,16 @@ public class Inspection {
         this.page=page;
         this.history=history;
         this.location=location;
+        this.create_date=create_date;
         this.create_date_text=create_date_text;
         this.comment=comment;
         this.status=status;
         this.doctor_id=doctor_id;
         this.doctor_name=doctor_name;
     }
+
+    public int getInspectionID(){return this.inspection_id;}
+    public void setInspectionID(int id){this.inspection_id=id;}
 
     public String getInspectionName() {
         return inspection_name;
@@ -87,6 +91,9 @@ public class Inspection {
     public void setInspectionLocation(String location) {
         this.location = location;
     }
+
+    public long getDateLong(){return create_date;}
+    public void setDateLong(long date){this.create_date=date;}
 
     public String getInspectionDate() {
         return this.create_date_text;

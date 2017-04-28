@@ -26,6 +26,7 @@ public class HttpHelper {
      *            请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
      * @return URL 所代表远程资源的响应结果
      */
+	public static String session_value;//用来保存sessionID的变量，by-kejun
     public static String sendGet(String url, String param) {
         String result = "";
         BufferedReader in = null;
@@ -39,6 +40,15 @@ public class HttpHelper {
             connection.setRequestProperty("connection", "Keep-Alive");
             connection.setRequestProperty("user-agent",
                     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+
+//            //第二次访问，添加cooke值
+//            if(session_value!=null){ //session_value不为空，再次访问，将之前获取的cookie值附上
+//                connection.setRequestProperty("cookie",session_value);
+//                System.out.println("再次访问，添加cookie："+session_value);
+//                System.out.println(connection.getHeaderFields().toString());
+//
+//            }
+
             // 建立实际的连接
             connection.connect();
 //            // 获取所有响应头字段
@@ -54,6 +64,14 @@ public class HttpHelper {
             while ((line = in.readLine()) != null) {
                 result += line;
             }
+
+//            //判断sessionID是否为空,by-kejun
+//            if(session_value==null){//session-value为空，第一次访问，获取cookie值
+//                String s = connection.getHeaderField("Set-Cookie");
+//                String[] ss = s.split(";");
+//                session_value = ss[0];
+//                System.out.println("第一次访问，获取cookie："+session_value);
+//            }
         } catch (Exception e) {
             System.out.println("发送GET请求出现异常！" + e);
             e.printStackTrace();
@@ -93,9 +111,18 @@ public class HttpHelper {
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent",
                     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+
+//            //第二次访问，添加cooke值
+//            if(session_value!=null){ //session_value不为空，再次访问，将之前获取的cookie值附上
+//                conn.setRequestProperty("cookie",session_value);
+//                System.out.println("再次访问，添加cookie："+session_value);
+//                System.out.println(conn.getHeaderFields().toString());
+//
+//            }
             // 发送POST请求必须设置如下两行
             conn.setDoOutput(true);
             conn.setDoInput(true);
+            conn.connect();//by kejun
             // 获取URLConnection对象对应的输出流
             out = new PrintWriter(conn.getOutputStream());
             // 发送请求参数
@@ -109,6 +136,14 @@ public class HttpHelper {
             while ((line = in.readLine()) != null) {
                 result += line;
             }
+
+//            //判断sessionID是否为空,by-kejun
+//            if(session_value==null){//session-value为空，第一次访问，获取cookie值
+//                String s = conn.getHeaderField("Set-Cookie");
+//                String[] ss = s.split(";");
+//                session_value = ss[0];
+//                System.out.println("第一次访问，获取cookie："+session_value);
+//            }
         } catch (Exception e) {
             System.out.println("发送 POST 请求出现异常！"+e);
             e.printStackTrace();

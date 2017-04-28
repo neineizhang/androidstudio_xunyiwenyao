@@ -17,9 +17,10 @@ public class Review {
 
     public Review(){}
 
-    public Review(int id, String name, String drug_name, String content, String date, int doctor_id, String doctor_name, String comment){
+    public Review(int id, String name, int drug_id, String drug_name, String content, String date, int doctor_id, String doctor_name, String comment){
         this.id=id;
         this.name=name;
+        this.drug_id =drug_id;
         this.drug_name=drug_name;
         this.content=content;
         this.date=date;
@@ -27,6 +28,9 @@ public class Review {
         this.doctor_name=doctor_name;
         this.comment=comment;
     }
+
+    public int getReviewID(){return id;};
+    public void setReviewID(int id){this.id=id;}
 
     public String getName(){
         return this.name;

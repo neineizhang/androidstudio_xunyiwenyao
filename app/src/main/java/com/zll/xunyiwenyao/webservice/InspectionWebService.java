@@ -8,7 +8,9 @@ import com.zll.xunyiwenyao.webitem.ResponseItem;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONPointerException;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +47,7 @@ public class InspectionWebService {
                     jsonobj.getString("inspection_type"), jsonobj.getString("pname"),
                     jsonobj.getInt("psex"),  jsonobj.getInt("page"),
                     jsonobj.getString("history"), jsonobj.getString("location"),
+                    jsonobj.getLong("create_date"),
                     jsonobj.getString("create_date_text"), jsonobj.getString("comment"),
                             jsonobj.getInt("status"), jsonobj.getInt("doctor_id"),
                     jsonobj.getString("doctor_name"));
@@ -103,27 +106,114 @@ public class InspectionWebService {
 
     public static void addInspection(Inspection item){
 
-        inspectionList.add(item);
-//        String url = "http://222.29.100.155/b2b2c/api/mobile/recipe/addInspection.do?";
+        //远程数据库添加
+        try {
+            String jsString = getJsonString(item);
+            String url = "http://222.29.100.155/b2b2c/api/mobile/recipe/addInspection.do";
+            System.out.println(url+"?"+jsString);
+//            jsString = URLEncoder.encode(jsString,"UTF-8");
+//            String s = HttpHelper.sendGet(url, jsString);
+            String s = HttpHelper.sendPost(url,jsString);
+            System.out.println(s);
 
-//        String s = HttpHelper.sendGet(url, item); 如何生成jsonString
+            //更新本地list
+            initDB();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
     }
 
-    public static void updateInspection ( Inspection inspection){}
 
-    public static void deleteInspection (Inspection inspection){}
 
-    public static void updateInspectionByPosition(int position,Inspection item){
-        inspectionList.set(position,item);
+
+    public static void updateInspectionByPosition(Inspection item){
+
+        try {
+            //远程更新
+            String jsString = getJsonString(item);
+            String url = "http://222.29.100.155/b2b2c/api/mobile/recipe/updateInspection.do";
+            System.out.println(url+"?"+jsString);
+            String s = HttpHelper.sendPost(url, jsString);
+            System.out.println(s);
+
+            //更新本地list
+            initDB();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
     }
-    public static void deleteInspectionByPosition(int position){
-        inspectionList.remove(position);
+    public static void deleteInspectionByPosition(Inspection item){
+
+        try {
+            //远程删除
+            String jsString = getJsonString(item);
+            String url = "http://222.29.100.155/b2b2c/api/mobile/recipe/deleteInspection.do";
+            System.out.println(url+"?"+jsString);
+            String s = HttpHelper.sendPost(url, jsString);
+            System.out.println(s);
+
+            //更新本地list
+            initDB();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     public static String[] listAllInspectionType(){
         String[] arrs_type =  new String[typeList.size()];
         typeList.toArray(arrs_type);
         return arrs_type;
+    }
+
+    /*
+    * jsonobj.getInt("inspection_id"), jsonobj.getString("inspection_name"),
+                    jsonobj.getString("inspection_type"), jsonobj.getString("pname"),
+                    jsonobj.getInt("psex"),  jsonobj.getInt("page"),
+                    jsonobj.getString("history"), jsonobj.getString("location"),
+                    jsonobj.getString("create_date_text"), jsonobj.getString("comment"),
+                            jsonobj.getInt("status"), jsonobj.getInt("doctor_id"),
+                    jsonobj.getString("doctor_name"
+    * */
+
+    public static JSONObject getJsonData(Inspection item){
+        JSONObject js=new JSONObject();
+        try {
+            js.put("inspection_id",item.getInspectionID());
+            js.put("inspection_name",item.getInspectionName());
+            js.put("inspection_type",item.getType());
+            js.put("pname",item.getPatientName());
+            js.put("psex",item.getPatientSex());
+            js.put("page",item.getPatientAge());
+            js.put("history",item.getPatientHistory());
+            js.put("location",item.getInspectionLoaction());
+            js.put("create_date_text",item.getInspectionDate());
+            js.put("comment",item.getInspectionComment());
+            js.put("status",item.getInspectionState());
+            js.put("doctor_id",item.getDoctorID());
+            js.put("doctor_name",item.getDoctorName());
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+       return js;
+    }
+
+
+    public static String getJsonString(Inspection item){
+        String jsonString = "inspection_id="+item.getInspectionID()+"&inspection_name="+item.getInspectionName()
+                +"&inspection_type="+item.getType()+"&pname="+item.getPatientName()
+                +"&psex="+item.getPatientSex()+"&page="+item.getPatientAge()
+                +"&history="+item.getPatientHistory()
+                +"&location="+item.getInspectionLoaction()+"&create_date="+item.getDateLong()
+                +"&create_date_text="+item.getInspectionDate()
+                +"&comment="+item.getInspectionComment()+"&status="+item.getInspectionState()
+                +"&doctor_id="+item.getDoctorID()+"&doctor_name="+item.getDoctorName();
+        return jsonString;
     }
 
 }

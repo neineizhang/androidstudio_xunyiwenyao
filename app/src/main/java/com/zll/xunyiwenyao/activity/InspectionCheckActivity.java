@@ -2,6 +2,7 @@ package com.zll.xunyiwenyao.activity;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -198,10 +199,12 @@ public class InspectionCheckActivity extends Activity implements TopBarView.onTi
                         newins.setInspectionState(Utils.INSPECTION_STATUS.UNCOMMITED.ordinal());
                         newins.setDoctorID(currDoctorID);
 
-                        InspectionWebService.updateInspectionByPosition(temp,newins);
+                        InspectionWebService.updateInspectionByPosition(newins);
 //                        InspectionWebService.updateInspection(newins);
                         Toast.makeText(InspectionCheckActivity.this, "检查单修改成功！", Toast.LENGTH_SHORT).show();
-                        finish();
+                        Intent i8=new Intent(InspectionCheckActivity.this,InspectionQueryActivity.class);
+                        startActivity(i8);
+//                        finish();
                     }else{
                         Toast.makeText(InspectionCheckActivity.this, "您没有权利保存此检查单！", Toast.LENGTH_SHORT).show();
                     }
@@ -249,10 +252,12 @@ public class InspectionCheckActivity extends Activity implements TopBarView.onTi
 
                         newins.setInspectionState(Utils.INSPECTION_STATUS.UNCOMMITED.ordinal());
                         newins.setDoctorID(currDoctorID);
-                        InspectionWebService.deleteInspectionByPosition(temp);
+                        InspectionWebService.deleteInspectionByPosition(newins);
 //                        InspectionWebService.deleteInspection(newins);
                         Toast.makeText(InspectionCheckActivity.this, "检查单删除成功！", Toast.LENGTH_SHORT).show();
-                        finish();
+                        Intent i8=new Intent(InspectionCheckActivity.this,InspectionQueryActivity.class);
+                        startActivity(i8);
+//                        finish();
                     }
                     else{
                         Toast.makeText(InspectionCheckActivity.this, "您没有权利删除此检查单！", Toast.LENGTH_SHORT).show();
@@ -279,7 +284,9 @@ public class InspectionCheckActivity extends Activity implements TopBarView.onTi
 //                        InspectionWebService.updateInspection(updateins);
 //                        InspectionWebService.updateInspectionByPosition(temp,updateins);
                         Toast.makeText(InspectionCheckActivity.this, "检查单提交成功！", Toast.LENGTH_SHORT).show();
-                        finish();
+                        Intent i8=new Intent(InspectionCheckActivity.this,InspectionQueryActivity.class);
+                        startActivity(i8);
+//                        finish();
                     }
                     else{
                         Toast.makeText(InspectionCheckActivity.this, "您没有权利提交此检查单！", Toast.LENGTH_SHORT).show();

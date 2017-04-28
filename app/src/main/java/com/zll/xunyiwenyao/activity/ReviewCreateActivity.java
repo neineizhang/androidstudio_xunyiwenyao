@@ -178,6 +178,7 @@ public class ReviewCreateActivity extends Activity implements onTitleBarClickLis
 					Toast.LENGTH_SHORT).show();
 		}else{
 			Review review = new Review();
+			review.setReviewID(0);
 			review.setName(review_name.getText().toString());
 			review.setDrugName(drug_name.getText().toString());
 			review.setDrugID(drug_id);

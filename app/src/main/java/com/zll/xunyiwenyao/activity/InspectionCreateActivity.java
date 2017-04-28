@@ -187,6 +187,9 @@ public class InspectionCreateActivity extends Activity implements onTitleBarClic
 					Toast.LENGTH_SHORT).show();
 		}else{
 			Inspection inspection = new Inspection();
+
+			inspection.setInspectionID(0);//ID为后台系统自增，与前端无关
+
 			inspection.setInspectionName(ins_name.getText().toString());
 			inspection.setType(type);
 			inspection.setInspectionLocation(ins_location.getText().toString());
@@ -219,6 +222,9 @@ public class InspectionCreateActivity extends Activity implements onTitleBarClic
 					Toast.LENGTH_SHORT).show();
 		}else{
 			Inspection inspection = new Inspection();
+
+			inspection.setInspectionID(0);//ID为后台系统自增，与前端无关
+
 			inspection.setType(type);
 			inspection.setInspectionName(ins_name.getText().toString());
 			inspection.setInspectionLocation(ins_location.getText().toString());

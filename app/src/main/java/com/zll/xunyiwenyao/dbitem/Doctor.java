@@ -5,22 +5,22 @@ package com.zll.xunyiwenyao.dbitem;
  */
 
 public class Doctor {
-    private int id;//ÏµÍ³×ÔÔö
-    private String user_name;//ÓÃ»§Ãû£¬×¢²áÊ±ÌîµÄÎ¨Ò»Ãû³Æ
-    private String real_name;//ÕæÊµĞÕÃû
-    private int sex;//ĞÔ±ğ£¬EnumĞ´ÔÚutilsÎÄ¼şÖĞ
-    private int type;//ÀàĞÍ£¬EnumĞ´ÔÚutilsÎÄ¼şÖĞ
-    private String passwd;//ÃÜÂë
+    private int id;//ÏµÍ³ï¿½ï¿½ï¿½ï¿½
+    private String user_name;//ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Î¨Ò»ï¿½ï¿½ï¿½ï¿½
+    private String real_name;//ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½
+    private int sex;//ï¿½Ô±ï¿½EnumĞ´ï¿½ï¿½utilsï¿½Ä¼ï¿½ï¿½ï¿½
+    private int type;//ï¿½ï¿½ï¿½Í£ï¿½EnumĞ´ï¿½ï¿½utilsï¿½Ä¼ï¿½ï¿½ï¿½
+    private String passwd;//ï¿½ï¿½ï¿½ï¿½
 
-    private String photo;//Ò½ÉúÕÕÆ¬Â·¾¶
-    private String license;//Ö´ÒµÖ¤ÊéÂ·¾¶
+    private String photo;//Ò½ï¿½ï¿½ï¿½ï¿½Æ¬Â·ï¿½ï¿½
+    private String license;//Ö´ÒµÖ¤ï¿½ï¿½Â·ï¿½ï¿½
 
     private String title;//Ö°Î»
     private String hospital;//Ò½Ôº
-    private String department;//¿ÆÊÒ
-    private String goodat;//É¾³ı
-    private String profile;//¸öÈË×ÊÁÏ
-    private String register_time;//×¢²áÊ±¼ä
+    private String department;//ï¿½ï¿½ï¿½ï¿½
+    private String goodat;//É¾ï¿½ï¿½
+    private String profile;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    private String register_time;//×¢ï¿½ï¿½Ê±ï¿½ï¿½
 
     public Doctor() {
     }
@@ -33,6 +33,21 @@ public class Doctor {
         this.hospital = hospital;
         this.user_name = username;
         this.passwd = passwd;
+    }
+    public Doctor(int id, String name, int type, String hospital, String username, String passwd,
+                  int sex, String title, String department, String goodat, String profile) {
+        super();
+        this.id = id;
+        this.real_name = name;
+        this.type = type;
+        this.hospital = hospital;
+        this.user_name = username;
+        this.passwd = passwd;
+        this.sex=sex;
+        this.title=title;
+        this.department=department;
+        this.goodat=goodat;
+        this.profile=profile;
     }
     public int getId() {
         return id;
