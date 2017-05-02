@@ -12,6 +12,7 @@ import com.zll.xunyiwenyao.dbitem.Utils;
 import com.zll.xunyiwenyao.webservice.DoctorWebService;
 import com.zll.xunyiwenyao.webservice.DrugWebService;
 import com.zll.xunyiwenyao.webservice.InspectionWebService;
+import com.zll.xunyiwenyao.webservice.ReportWebService;
 import com.zll.xunyiwenyao.webservice.ReviewWebService;
 
 import android.app.Activity;
@@ -53,6 +54,7 @@ public class LoginActivity extends Activity {
 			DrugWebService.initDB();
 			InspectionWebService.initDB();
 			ReviewWebService.initDB();
+			ReportWebService.initDB();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

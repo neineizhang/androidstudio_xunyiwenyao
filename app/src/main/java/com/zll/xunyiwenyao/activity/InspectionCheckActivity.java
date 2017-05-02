@@ -255,9 +255,9 @@ public class InspectionCheckActivity extends Activity implements TopBarView.onTi
                         InspectionWebService.deleteInspectionByPosition(newins);
 //                        InspectionWebService.deleteInspection(newins);
                         Toast.makeText(InspectionCheckActivity.this, "检查单删除成功！", Toast.LENGTH_SHORT).show();
-                        Intent i8=new Intent(InspectionCheckActivity.this,InspectionQueryActivity.class);
-                        startActivity(i8);
-//                        finish();
+//                        Intent i8=new Intent(InspectionCheckActivity.this,InspectionQueryActivity.class);
+//                        startActivity(i8);
+                        finish();
                     }
                     else{
                         Toast.makeText(InspectionCheckActivity.this, "您没有权利删除此检查单！", Toast.LENGTH_SHORT).show();

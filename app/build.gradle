@@ -22,4 +22,5 @@ dependencies {
     compile 'com.android.support:support-v4:20.0.0'
     compile 'com.google.code.gson:gson:2.8.0'
     compile files('libs/json-20160810.jar')
+    compile files('libs/json-lib-2.4-jdk15.jar')
 }

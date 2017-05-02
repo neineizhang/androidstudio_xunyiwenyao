@@ -60,7 +60,7 @@ public class ReportCheckActivity extends Activity implements TopBarView.onTitleB
         feature.setText(reportList.get(temp).getFeature().toString());
         event_date.setText(reportList.get(temp).getEvent_Date().toString());
         report_date.setText(reportList.get(temp).getReportDate().toString());
-        doctor_name.setText(reportList.get(temp).getDoctor().getRealName().toString());
+        doctor_name.setText(reportList.get(temp).getDoctorName().toString());
         comment.setText(reportList.get(temp).getComment().toString());
 
         drug_id_list = reportList.get(temp).getDrugIDList();

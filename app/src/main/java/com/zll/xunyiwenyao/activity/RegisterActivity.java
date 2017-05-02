@@ -99,7 +99,8 @@ public class RegisterActivity extends Activity implements TopBarView.onTitleBarC
         });
          //Spinner-hospial
         spinner_hospital = (Spinner)findViewById(R.id.spinner_hospital);
-        arrs_hospital = getResources().getStringArray(R.array.listHospitalArr);
+//        arrs_hospital = getResources().getStringArray(R.array.listHospitalArr);
+        arrs_hospital = DoctorWebService.listAllHospital();
         ArrayAdapter<String> arrsHospitalAdapter = new ArrayAdapter<String>(
                 RegisterActivity.this, android.R.layout.simple_list_item_1,arrs_hospital);
         spinner_hospital.setAdapter(arrsHospitalAdapter);
@@ -242,7 +243,7 @@ public class RegisterActivity extends Activity implements TopBarView.onTitleBarC
             if(valid==0){
                 Toast.makeText(RegisterActivity.this, "用户名已经存在，请重新输入！",
                         Toast.LENGTH_SHORT).show();
-            }else{
+            }else if(user_name.getText().toString().length()>=4&&user_name.getText().toString().length()<=20){
                 Doctor doctor = new Doctor();
                 doctor.setUsername(user_name.getText().toString());
                 doctor.setSex(sex);
@@ -258,6 +259,9 @@ public class RegisterActivity extends Activity implements TopBarView.onTitleBarC
                 Toast.makeText(RegisterActivity.this, "注册成功！",
                         Toast.LENGTH_SHORT).show();
                 finish();
+            }else{
+                Toast.makeText(RegisterActivity.this, "用户名的长度为4-20个字符！",
+                        Toast.LENGTH_SHORT).show();
             }
         }else{
             Toast.makeText(RegisterActivity.this, "两次输入的密码不一致！",
