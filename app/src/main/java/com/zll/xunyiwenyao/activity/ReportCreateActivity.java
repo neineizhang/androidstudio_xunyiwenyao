@@ -249,9 +249,10 @@ public class ReportCreateActivity extends Activity implements onTitleBarClickLis
 			report.setLever(level);
 			report.setFeature(feature.getText().toString());
 			if(event_date.getText().toString().equals(""))
-				report.setEventDate("0");
-			else
-				report.setEventDate(event_date.getText().toString());
+				report.setEventDate("0000-00-00 00:00");
+			else{
+				report.setEventDate(event_date.getText().toString()+" 00:00");
+			}
 			report.setReportDate(report_date.getText().toString());
 			report.setDoctor(Utils.LOGIN_DOCTOR);
 			report.setDoctorID(Utils.LOGIN_DOCTOR.getId());

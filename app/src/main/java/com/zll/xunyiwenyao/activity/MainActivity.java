@@ -20,6 +20,7 @@ public class MainActivity extends Activity {
 	private Button prescription_create, prescription_query, prescription_template, prescription_examine;
 	private Button inspection_create, inspection_template, inspection_query, review, report;
 	private Button information_manage,review_query, report_query;
+	private Button information_show;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -28,7 +29,6 @@ public class MainActivity extends Activity {
 		prescription_create = (Button) findViewById(R.id.prescription_create);
 		prescription_query = (Button) findViewById(R.id.prescription_query);
 		prescription_template = (Button) findViewById(R.id.prescription_template);
-		//prescription_examine = (Button) findViewById(R.id.prescription_examine);
 
 		inspection_create = (Button) findViewById(R.id.inspection_create);
 	
@@ -39,6 +39,7 @@ public class MainActivity extends Activity {
 		information_manage = (Button)findViewById(R.id.information_manage);
 		review_query = (Button)findViewById(R.id.review_query);
 		report_query = (Button)findViewById(R.id.report_query);
+
 		
 		prescription_create.setOnClickListener(new OnClickListener() {
 

@@ -126,7 +126,7 @@ public class InspectionWebService {
 
 
 
-    public static void updateInspectionByPosition(Inspection item){
+    public static void updateInspection(Inspection item){
 
         try {
             //远程更新
@@ -144,8 +144,8 @@ public class InspectionWebService {
         }
 
     }
-    public static void deleteInspectionByPosition(Inspection item){
-
+    public static void deleteInspection(Inspection item){
+        inspectionList.remove(item);
         try {
             //远程删除
             String jsString = getJsonString(item);
