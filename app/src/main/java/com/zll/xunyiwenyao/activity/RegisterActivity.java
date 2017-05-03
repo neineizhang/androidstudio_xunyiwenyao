@@ -22,6 +22,7 @@ import com.zll.xunyiwenyao.webservice.DoctorWebService;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by kejund on 17/4/5.
@@ -58,15 +59,15 @@ public class RegisterActivity extends Activity implements TopBarView.onTitleBarC
 
        //头像选择
         head_image = (ImageView) findViewById(R.id.headImage);
-        head_image.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                //selectImage();
-                chooseImage();
-            }
-        });
+//        head_image.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View arg0) {
+//                // TODO Auto-generated method stub
+//                //selectImage();
+//                chooseImage();
+//            }
+//        });
 
         //EditText
        user_name = (EditText)findViewById(R.id.user_name);
@@ -178,15 +179,15 @@ public class RegisterActivity extends Activity implements TopBarView.onTitleBarC
 
         //执业照片
         license_image = (ImageView) findViewById(R.id.licenseImage);
-        license_image.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                //selectImage();
-                chooseImage();
-            }
-        });
+//        license_image.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View arg0) {
+//                // TODO Auto-generated method stub
+//                //selectImage();
+//                chooseImage();
+//            }
+//        });
 
         //Button
         btn_commint = (Button)findViewById(R.id.button_commit);
@@ -255,10 +256,18 @@ public class RegisterActivity extends Activity implements TopBarView.onTitleBarC
                 doctor.setDepartment(department);
                 doctor.setGoodat(goodat.getText().toString());
                 doctor.setProfile(profile.getText().toString());
-                DoctorWebService.addDoctor(doctor);
-                Toast.makeText(RegisterActivity.this, "注册成功！",
-                        Toast.LENGTH_SHORT).show();
-                finish();
+//                DoctorWebService.addDoctor(doctor);
+                Map<String, String> map = DoctorWebService.registerDoctor(doctor);
+                String result = map.get("result");
+                String message = map.get("message");
+                if(result.equals("1")){//注册成功
+                    Toast.makeText(RegisterActivity.this, "注册成功！",
+                            Toast.LENGTH_SHORT).show();
+                    finish();
+                }else{
+                    Toast.makeText(RegisterActivity.this, message,
+                            Toast.LENGTH_SHORT).show();
+                }
             }else{
                 Toast.makeText(RegisterActivity.this, "用户名的长度为4-20个字符！",
                         Toast.LENGTH_SHORT).show();

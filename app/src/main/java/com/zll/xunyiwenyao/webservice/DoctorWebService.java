@@ -1,6 +1,7 @@
 package com.zll.xunyiwenyao.webservice;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -164,7 +165,7 @@ public class DoctorWebService {
 //            System.out.println(url+"?"+jsString);
 //            String s = HttpHelper.sendPost(url,jsString);
 //            System.out.println(s);
-            //添加密码
+
             String regUrl = "http://222.29.100.155/b2b2c/api/mobile/doctor/doctorRegister.do";
             System.out.println(regUrl+"?"+jsString);
             String s2 = HttpHelper.sendPost(regUrl,jsString);
@@ -176,6 +177,34 @@ public class DoctorWebService {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    public static Map<String, String> registerDoctor(Doctor item){
+        Map<String, String> map = new HashMap<String, String>();
+        try {
+            String jsString = getJsonString(item);
+            String regUrl = "http://222.29.100.155/b2b2c/api/mobile/doctor/doctorRegister.do";
+            System.out.println(regUrl+"?"+jsString);
+            String s = HttpHelper.sendPost(regUrl,jsString);
+            System.out.println(s);
+            Map m = JsonHelper.toMap(s);
+            ResponseItem responditem = new  ResponseItem();
+            responditem = (ResponseItem) JsonHelper.toJavaBean(responditem, m);
+            JSONObject jo = new JSONObject(s);
+            String result = jo.getString("result");
+            map.put("result",result);
+            String message = jo.getString("message");
+            map.put("message",message);
+
+            //更新本地list
+            initDB();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+
+        return map;
     }
 
     public static String[] listAllDepartment(){
@@ -206,6 +235,23 @@ public class DoctorWebService {
         for(Doctor doctor:doctorlist)
             usernamelist.add(doctor.getUsername());
         return usernamelist;
+    }
+
+    public static void updateDoctor(Doctor item){
+        try {
+            String jsString = getJsonString(item);
+
+            String regUrl = "http://222.29.100.155/b2b2c/api/mobile/doctor/updateDoctor.do";
+            System.out.println(regUrl+"?"+jsString);
+            String s = HttpHelper.sendPost(regUrl,jsString);
+            System.out.println(s);
+
+            //更新本地list
+            initDB();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
 /* doctor = new Doctor(jsonobj.getInt("doctor_id"),
